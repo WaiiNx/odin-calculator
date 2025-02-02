@@ -3,7 +3,10 @@ function operate(){
 
     let number1 = "";
     let number2 = "";
+    let currentNumber = "";
     let operator = "";
+
+    //Create digits 0-9 buttons
 
     const oneButton = document.createElement("button");
     mainBody.appendChild(oneButton);
@@ -53,6 +56,8 @@ function operate(){
     const zeroButton = document.createElement("button");
     mainBody.appendChild(zeroButton);
 
+    //Create operator buttons
+
     zeroButton.textContent = "0";
 
     const addButton = document.createElement("button");
@@ -80,37 +85,14 @@ function operate(){
 
     equalsButton.textContent = "=";
 
+    //Create clear button
+
     const clearButton = document.createElement("button");
     mainBody.appendChild(clearButton);
 
     clearButton.textContent = "Clear";
 
-    const firstNumberDiv = document.createElement("div");
-    mainBody.appendChild(firstNumberDiv);
-    firstNumberDiv.style.border = "1px solid black";
-    firstNumberDiv.style.backgroundColor = "lightgrey";
-
-    const firstNumberText = document.createElement("p");
-    firstNumberText.textContent = number1;
-    firstNumberDiv.appendChild(firstNumberText);
-
-    const operatorDiv = document.createElement("div");
-    mainBody.appendChild(operatorDiv);
-    operatorDiv.style.border = "1px solid black";
-    operatorDiv.style.backgroundColor = "lightgrey";
-
-    const operatorText = document.createElement("p");
-    operatorText.textContent = operator;
-    operatorDiv.appendChild(operatorText);
-
-    const secondNumberDiv = document.createElement("div");
-    mainBody.appendChild(secondNumberDiv);
-    secondNumberDiv.style.border = "1px solid black";
-    secondNumberDiv.style.backgroundColor = "lightgrey";
-
-    const secondNumberText = document.createElement("p");
-    secondNumberText.textContent = number2;
-    secondNumberDiv.appendChild(secondNumberText);
+    //Create divs for user input and result
 
     const resultDiv = document.createElement("div");
     mainBody.appendChild(resultDiv);
@@ -122,33 +104,94 @@ function operate(){
 
     let calcChoice = "";
 
+    //Add event listeners to buttons
+
+    oneButton.addEventListener("click", function(){
+        currentNumber += "1";
+        resultText.textContent = currentNumber;
+    });
+
+    twoButton.addEventListener("click", function(){
+        currentNumber += "2";
+        resultText.textContent = currentNumber;
+    });
+
+    threeButton.addEventListener("click", function(){
+        currentNumber += "3";
+        resultText.textContent = currentNumber;
+    });
+
+    fourButton.addEventListener("click", function(){
+        currentNumber += "4";
+        resultText.textContent = currentNumber;
+    });
+
+    fiveButton.addEventListener("click", function(){
+        currentNumber += "5";
+        resultText.textContent = currentNumber;
+    });
+
+    sixButton.addEventListener("click", function(){
+        currentNumber += "6";
+        resultText.textContent = currentNumber;
+    });
+
+    sevenButton.addEventListener("click", function(){
+        currentNumber += "7";
+        resultText.textContent = currentNumber;
+    });
+
+    eightButton.addEventListener("click", function(){
+        currentNumber += "8";
+        resultText.textContent = currentNumber;
+    });
+
+    nineButton.addEventListener("click", function(){
+        currentNumber += "9";
+        resultText.textContent = currentNumber;
+    });
+
+    zeroButton.addEventListener("click", function(){
+        currentNumber += "0";
+        resultText.textContent = currentNumber;
+    });
+
     addButton.addEventListener("click", function(){
         calcChoice = "add";
         operator = "+";
-        operatorText.textContent = operator;
+        number1 = currentNumber;
+        currentNumber = "";
+        resultText.textContent = operator;
     });
 
     subtractButton.addEventListener("click", function(){
         calcChoice = "subtract";
         operator = "-";
-        operatorText.textContent = operator
+        number1 = currentNumber;
+        currentNumber = "";
+        resultText.textContent = operator
     });
 
     multiplyButton.addEventListener("click", function(){
-        calcChoice = "mutliply";
+        calcChoice = "multiply";
         operator = "*";
-        operatorText.textContent = operator;
+        number1 = currentNumber;
+        currentNumber = "";
+        resultText.textContent = operator;
     });
 
     divideButton.addEventListener("click", function(){
         calcChoice = "divide";
         operator = "/";
-        operatorText.textContent = operator;
+        number1 = currentNumber;
+        currentNumber = "";
+        resultText.textContent = operator;
     });
 
     equalsButton.addEventListener("click", function(){
-        let number1 = parseFloat(number1);
-        let number2 = parseFloat(number2);
+        number2 = currentNumber;
+        number1 = parseFloat(number1);
+        number2 = parseFloat(number2);
         let result = 0;
         if(calcChoice === "add"){
             result = addNumbers(number1, number2);
@@ -160,16 +203,16 @@ function operate(){
             result = divideNumbers(number1, number2);
         }
         resultText.textContent = result;
+        number1 = "";
+        number2 = "";
+        currentNumber = "";
+        operator = "";
     });
 
     clearButton.addEventListener("click", function(){
-        number1 = "0";
-        number2 = "0";
-        operator = "100";
-        console.log(operator);
-        firstNumberText.textContent = number1;
-        secondNumberText.textContent = number2;
-        operatorText.textContent = operator;
+        number1 = "";
+        number2 = "";
+        operator = "";
         resultText.textContent = "";
     });
 }
@@ -180,19 +223,19 @@ function addNumbers(number1, number2){
     return result;
 }
 
-function subtractNumbers(){
+function subtractNumbers(number1, number2){
     let result = 0;
     result = number1 - number2;
     return result;
 }
 
-function multiplyNumbers(){
+function multiplyNumbers(number1, number2){
     let result = 0;
     result = number1 * number2;
     return result;
 }
 
-function divideNumbers(){
+function divideNumbers(number1, number2){
     let result = 0;
     result = number1 / number2;
     return result;
