@@ -160,6 +160,9 @@ function operate(){
         calcChoice = "add";
         operator = "+";
         number1 = currentNumber;
+        if (number1 === ""){
+            number1 = "0";
+        }
         currentNumber = "";
         resultText.textContent = operator;
     });
@@ -168,6 +171,9 @@ function operate(){
         calcChoice = "subtract";
         operator = "-";
         number1 = currentNumber;
+        if (number1 === ""){
+            number1 = "0";
+        }
         currentNumber = "";
         resultText.textContent = operator
     });
@@ -177,6 +183,9 @@ function operate(){
         operator = "*";
         number1 = currentNumber;
         currentNumber = "";
+        if (number1 === ""){
+            number1 = "0";
+        }
         resultText.textContent = operator;
     });
 
@@ -185,6 +194,9 @@ function operate(){
         operator = "/";
         number1 = currentNumber;
         currentNumber = "";
+        if (number1 === ""){
+            number1 = "0";
+        }
         resultText.textContent = operator;
     });
 
@@ -200,7 +212,15 @@ function operate(){
         } else if(calcChoice === "multiply"){
             result = multiplyNumbers(number1, number2);
         } else if(calcChoice === "divide"){
-            result = divideNumbers(number1, number2);
+            if (number2 === 0){
+                alert("Dont fckn try to divide by 0!");
+                number1 = "";
+                number2 = "";
+                currentNumber = "";
+                operator = "";
+                resultText.textContent = "";
+                return;
+            }
         }
         resultText.textContent = result;
         number1 = "";
@@ -221,24 +241,28 @@ function operate(){
 function addNumbers(number1, number2){
     let result = 0;
     result = number1 + number2;
+    result = Math.round(result * 100) / 100;
     return result;
 }
 
 function subtractNumbers(number1, number2){
     let result = 0;
     result = number1 - number2;
+    result = Math.round(result * 100) / 100;
     return result;
 }
 
 function multiplyNumbers(number1, number2){
     let result = 0;
     result = number1 * number2;
+    result = Math.round(result * 100) / 100;
     return result;
 }
 
 function divideNumbers(number1, number2){
     let result = 0;
     result = number1 / number2;
+    result = Math.round(result * 100) / 100;
     return result;
 }
 
