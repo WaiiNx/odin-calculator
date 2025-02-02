@@ -1,3 +1,7 @@
+/* TODO:
+- Finish Extra Credit Part of The Odin Project
+*/ 
+
 function operate(){
     const mainBody = document.querySelector("body");
 
@@ -159,10 +163,17 @@ function operate(){
     addButton.addEventListener("click", function(){
         calcChoice = "add";
         operator = "+";
+        // if current number is empty, set it to number1 to prevent multiple clicking of operator
+        if (currentNumber === ""){
+            currentNumber = number1;
+        }
+        // save current number to number1 to work with second number next
         number1 = currentNumber;
+        // if number is empty, set it to 0
         if (number1 === ""){
             number1 = "0";
         }
+        // empty current number to start with new number
         currentNumber = "";
         resultText.textContent = operator;
     });
@@ -170,7 +181,11 @@ function operate(){
     subtractButton.addEventListener("click", function(){
         calcChoice = "subtract";
         operator = "-";
+        if (currentNumber === ""){
+            currentNumber = number1;
+        }
         number1 = currentNumber;
+        // if number is empty, set it to 0
         if (number1 === ""){
             number1 = "0";
         }
@@ -181,8 +196,12 @@ function operate(){
     multiplyButton.addEventListener("click", function(){
         calcChoice = "multiply";
         operator = "*";
+        if (currentNumber === ""){
+            currentNumber = number1;
+        }
         number1 = currentNumber;
         currentNumber = "";
+        // if number is empty, set it to 0
         if (number1 === ""){
             number1 = "0";
         }
@@ -192,8 +211,12 @@ function operate(){
     divideButton.addEventListener("click", function(){
         calcChoice = "divide";
         operator = "/";
+        if (currentNumber === ""){
+            currentNumber = number1;
+        }
         number1 = currentNumber;
         currentNumber = "";
+        // if number is empty, set it to 0
         if (number1 === ""){
             number1 = "0";
         }
@@ -201,10 +224,33 @@ function operate(){
     });
 
     equalsButton.addEventListener("click", function(){
+        let result = 0;
+        // if number1 and currentNumber are empty, reset everything and alert user
+        if (number1 === "" && currentNumber === ""){
+            alert("Yes, great idea to calculate nothing!");
+            number1 = "";
+            number2 = "";
+            currentNumber = "";
+            operator = "";
+            resultText.textContent = "";
+            return;
+        // if number1 is empty and currentNumber is not, set result to currentNumber
+        }else if (number1 === "" && currentNumber !== ""){
+            result = currentNumber;
+            resultText.textContent = result;
+            return;
+        // if no operator is chosen, alert user
+        }else if (number1 !== "" && currentNumber === ""){
+            alert("What the hell am i supposed to do with this?");
+            return;
+        }
+
+        // set number2 to currentNumber
         number2 = currentNumber;
+        // parse numbers to float
         number1 = parseFloat(number1);
         number2 = parseFloat(number2);
-        let result = 0;
+
         if(calcChoice === "add"){
             result = addNumbers(number1, number2);
         } else if(calcChoice === "subtract"){
@@ -212,6 +258,7 @@ function operate(){
         } else if(calcChoice === "multiply"){
             result = multiplyNumbers(number1, number2);
         } else if(calcChoice === "divide"){
+            // dont let user divide by 0
             if (number2 === 0){
                 alert("Dont fckn try to divide by 0!");
                 number1 = "";
@@ -220,8 +267,13 @@ function operate(){
                 operator = "";
                 resultText.textContent = "";
                 return;
+            }else{
+            result = divideNumbers(number1, number2);
             }
+        } else if (calcChoice === ""){
+            result = number1;
         }
+        // reset, but set result to currentNumber to continue calculating
         resultText.textContent = result;
         number1 = "";
         number2 = "";
@@ -229,6 +281,7 @@ function operate(){
         operator = "";
     });
 
+    // reset everything
     clearButton.addEventListener("click", function(){
         number1 = "";
         number2 = "";
