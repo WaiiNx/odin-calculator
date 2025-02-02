@@ -205,7 +205,7 @@ function operate(){
         resultText.textContent = result;
         number1 = "";
         number2 = "";
-        currentNumber = "";
+        currentNumber = result;
         operator = "";
     });
 
@@ -213,6 +213,7 @@ function operate(){
         number1 = "";
         number2 = "";
         operator = "";
+        currentNumber = "";
         resultText.textContent = "";
     });
 }
