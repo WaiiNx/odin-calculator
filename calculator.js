@@ -6,7 +6,7 @@
 - Add backspace
 - Add divs instead of putting everything in body
 - Add negative numbers
-- Create one calculate() function instead of add subtract multiply divide functions
+- Create one calculate() function instead of add subtract multiply divide functions ***DONE***
 - CSS Styling
 */ 
 
@@ -75,14 +75,12 @@ function operate(){
     const resultText = document.createElement("p");
     resultDiv.appendChild(resultText);
 
-    let calcChoice = "";
-
     //Add event listeners to buttons
 
-    addButton.addEventListener("click", function(){ operatorPressed("add", "+") });
-    subtractButton.addEventListener("click", function(){ operatorPressed("subtract", "-") });
-    multiplyButton.addEventListener("click", function(){ operatorPressed("multiply", "*") });
-    divideButton.addEventListener("click", function(){ operatorPressed("divide", "/") });
+    addButton.addEventListener("click", function(){ operatorPressed("+") });
+    subtractButton.addEventListener("click", function(){ operatorPressed("-") });
+    multiplyButton.addEventListener("click", function(){ operatorPressed("*") });
+    divideButton.addEventListener("click", function(){ operatorPressed("/") });
 
     equalsButton.addEventListener("click", function(){
         let result = 0;
@@ -112,28 +110,25 @@ function operate(){
         number1 = parseFloat(number1);
         number2 = parseFloat(number2);
 
-        if(calcChoice === "add"){
-            result = addNumbers(number1, number2);
-        } else if(calcChoice === "subtract"){
-            result = subtractNumbers(number1, number2);
-        } else if(calcChoice === "multiply"){
-            result = multiplyNumbers(number1, number2);
-        } else if(calcChoice === "divide"){
-            // dont let user divide by 0
-            if (number2 === 0){
-                alert("Dont fckn try to divide by 0!");
-                number1 = "";
-                number2 = "";
-                currentNumber = "";
-                operator = "";
-                resultText.textContent = "";
-                return;
-            }else{
-            result = divideNumbers(number1, number2);
-            }
-        } else if (calcChoice === ""){
-            result = number1;
+        if (operator !== ""){
+            result = calculate(number1, number2, operator);
         }
+            else if (operator === "/"){
+                if (number2 === 0){
+                    // dont let user divide by 0
+                    alert("Dont fckn try to divide by 0!");
+                    number1 = "";
+                    number2 = "";
+                    currentNumber = "";
+                    operator = "";
+                    resultText.textContent = "";
+                    return;
+                }else{
+                result = divideNumbers(number1, number2);
+                }
+            } else if (operator === ""){
+                result = number1;
+            }
         // reset, but set result to currentNumber to continue calculating
         resultText.textContent = result;
         number1 = "";
@@ -151,8 +146,7 @@ function operate(){
         resultText.textContent = "";
     });
 
-    function operatorPressed(choice, symbol){
-        calcChoice = choice;
+    function operatorPressed(symbol){
         operator = symbol;
         if (currentNumber === ""){
             currentNumber = number1;
@@ -167,30 +161,22 @@ function operate(){
     }    
 }
 
-function addNumbers(number1, number2){
-    let result = 0;
-    result = number1 + number2;
-    result = Math.round(result * 100) / 100;
-    return result;
-}
-
-function subtractNumbers(number1, number2){
-    let result = 0;
-    result = number1 - number2;
-    result = Math.round(result * 100) / 100;
-    return result;
-}
-
-function multiplyNumbers(number1, number2){
-    let result = 0;
-    result = number1 * number2;
-    result = Math.round(result * 100) / 100;
-    return result;
-}
-
-function divideNumbers(number1, number2){
-    let result = 0;
-    result = number1 / number2;
+function calculate(number1, number2, operator){
+    let result = 0
+    switch (operator){
+        case "+":
+            result = number1 + number2;
+            break;
+        case "-":
+            result = number1 - number2;
+            break;
+        case "*":
+            result = number1 * number2;
+            break;
+        case "/":
+            result = number1 / number2;
+            break;
+    }
     result = Math.round(result * 100) / 100;
     return result;
 }
