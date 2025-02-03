@@ -33,9 +33,20 @@ body {
     font-size: 2em;
     padding: 10px;
     border-radius: 5px;
-    height: 80px; /* Fixed height */
+    height: 80px;
     width: 100%;
     box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Fix for result text inside the display */
+.display p {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Operators (1 row) */
