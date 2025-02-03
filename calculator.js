@@ -5,7 +5,7 @@
 - Add decimal point
 - Add backspace
 - Add divs instead of putting everything in body
-- Add negative numbers
+- Add negative numbers  ***DONE***
 - Create one calculate() function instead of add subtract multiply divide functions ***DONE***
 - CSS Styling
 */ 
@@ -32,6 +32,11 @@ function operate(){
             resultText.textContent = currentNumber;
         });
     }
+
+    const negativeButton = document.createElement("button");
+    mainBody.appendChild(negativeButton);
+
+    negativeButton.textContent = "(-)";
 
     const addButton = document.createElement("button");
     mainBody.appendChild(addButton);
@@ -77,6 +82,7 @@ function operate(){
 
     //Add event listeners to buttons
 
+    negativeButton.addEventListener("click", function(){ makeNumberNegative() });
     addButton.addEventListener("click", function(){ operatorPressed("+") });
     subtractButton.addEventListener("click", function(){ operatorPressed("-") });
     multiplyButton.addEventListener("click", function(){ operatorPressed("*") });
@@ -159,6 +165,11 @@ function operate(){
         currentNumber = "";
         resultText.textContent = operator
     }    
+
+    function makeNumberNegative(){
+        currentNumber = currentNumber * -1;
+        resultText.textContent = currentNumber;
+    }
 }
 
 function calculate(number1, number2, operator){
