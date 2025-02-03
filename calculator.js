@@ -2,8 +2,8 @@
 - Finish Extra Credit Part of The Odin Project
 - Break operate() into smaller functions
 - Add keyboard support
-- Add decimal point
-- Add backspace
+- Add decimal point ***DONE***
+- Add backspace ***DONE***
 - Add divs instead of putting everything in body
 - Add negative numbers  ***DONE***
 - Create one calculate() function instead of add subtract multiply divide functions ***DONE***
@@ -32,6 +32,16 @@ function operate(){
             resultText.textContent = currentNumber;
         });
     }
+
+    const decimalButton = document.createElement("button");
+    mainBody.appendChild(decimalButton);
+
+    decimalButton.textContent = ".";
+
+    const backspaceButton = document.createElement("button");
+    mainBody.appendChild(backspaceButton);
+
+    backspaceButton.textContent = "<-";
 
     const negativeButton = document.createElement("button");
     mainBody.appendChild(negativeButton);
@@ -82,11 +92,13 @@ function operate(){
 
     //Add event listeners to buttons
 
+    decimalButton.addEventListener("click", function(){ addDecimal() });
     negativeButton.addEventListener("click", function(){ makeNumberNegative() });
     addButton.addEventListener("click", function(){ operatorPressed("+") });
     subtractButton.addEventListener("click", function(){ operatorPressed("-") });
     multiplyButton.addEventListener("click", function(){ operatorPressed("*") });
     divideButton.addEventListener("click", function(){ operatorPressed("/") });
+    backspaceButton.addEventListener("click", function(){ backspace() });
 
     equalsButton.addEventListener("click", function(){
         let result = 0;
@@ -139,7 +151,7 @@ function operate(){
         resultText.textContent = result;
         number1 = "";
         number2 = "";
-        currentNumber = result;
+        currentNumber = result.toString();
         operator = "";
     });
 
@@ -167,7 +179,29 @@ function operate(){
     }    
 
     function makeNumberNegative(){
+        if (currentNumber === ""){
+            alert("You have nothing to make negative!");
+            return;
+        }
         currentNumber = currentNumber * -1;
+        resultText.textContent = currentNumber;
+    }
+
+    function backspace(){
+        if (currentNumber === ""){
+            alert("You have nothing to backspace!");
+            return;
+        }
+        currentNumber = currentNumber.slice(0, -1);
+        resultText.textContent = currentNumber;
+    }
+
+    function addDecimal(){
+        if (currentNumber.includes(".")){
+            alert("You already have a decimal point!");
+            return;
+        }
+        currentNumber += ".";
         resultText.textContent = currentNumber;
     }
 }
