@@ -1,12 +1,8 @@
 /* TODO:
 - Finish Extra Credit Part of The Odin Project
 - Break operate() into smaller functions
-- Add keyboard support
-- Add decimal point ***DONE***
-- Add backspace ***DONE***
+- Add keyboard support  ***DONE***
 - Add divs instead of putting everything in body
-- Add negative numbers  ***DONE***
-- Create one calculate() function instead of add subtract multiply divide functions ***DONE***
 - CSS Styling
 */ 
 
@@ -14,6 +10,7 @@ function operate(){
     const mainBody = document.querySelector("body");
     //Array of digit texts
     const digitTexts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    const digitButtons = [];
 
     let number1 = "";
     let number2 = "";
@@ -26,6 +23,7 @@ function operate(){
         const digitButton = document.createElement("button");
         mainBody.appendChild(digitButton);
         digitButton.textContent = digitTexts[i];
+        digitButtons.push(digitButton);
         // Add event listener to each digit button
         digitButton.addEventListener("click", function(){
             currentNumber += digitTexts[i];
@@ -89,6 +87,51 @@ function operate(){
 
     const resultText = document.createElement("p");
     resultDiv.appendChild(resultText);
+
+    //Event Listener for keyboard support
+
+    document.addEventListener("keydown", function(event){
+        if (!isNaN(event.key)){
+            let index = parseInt(event.key);
+            digitButtons[index].click();
+        }else if (event.key === "Enter"){
+            equalsButton.click();
+        }else if (event.key === "+"){
+            addButton.click();
+        }else if (event.key === "-"){
+            subtractButton.click();
+        }else if (event.key === "*"){
+            multiplyButton.click();
+        }else if (event.key === "/"){
+            divideButton.click();
+        }else if (event.key === "Backspace"){
+            backspaceButton.click();
+        }else if (event.key === "Escape"){
+            clearButton.click();
+        }else if (event.key === "."){
+            decimalButton.click();
+        }else if (event.key === "0"){
+            digitButton[9].click();
+        }else if (event.key === "1"){
+            digitButton[0].click();
+        }else if (event.key === "2"){
+            digitButton[1].click();
+        }else if (event.key === "3"){
+            digitButton[2].click();
+        }else if (event.key === "4"){
+            digitButton[3].click();
+        }else if (event.key === "5"){
+            digitButton[4].click();
+        }else if (event.key === "6"){
+            digitButton[5].click();
+        }else if (event.key === "7"){
+            digitButton[6].click();
+        }else if (event.key === "8"){
+            digitButton[7].click();
+        }else if (event.key === "9"){
+            digitButton[8].click();
+        }
+    });
 
     //Add event listeners to buttons
 
