@@ -1,68 +1,37 @@
 /* TODO:
 - Finish Extra Credit Part of The Odin Project
+- Break operate() into smaller functions
+- Add keyboard support
+- Add decimal point
+- Add backspace
+- Add divs instead of putting everything in body
+- Add negative numbers
+- Create one calculate() function instead of add subtract multiply divide functions
+- CSS Styling
 */ 
 
 function operate(){
     const mainBody = document.querySelector("body");
+    //Array of digit texts
+    const digitTexts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
     let number1 = "";
     let number2 = "";
     let currentNumber = "";
     let operator = "";
 
-    //Create digits 0-9 buttons
+    //Create buttons for digits
 
-    const oneButton = document.createElement("button");
-    mainBody.appendChild(oneButton);
-
-    oneButton.textContent = "1";
-
-    const twoButton = document.createElement("button");
-    mainBody.appendChild(twoButton);
-
-    twoButton.textContent = "2";
-
-    const threeButton = document.createElement("button");
-    mainBody.appendChild(threeButton);
-
-    threeButton.textContent = "3";
-
-    const fourButton = document.createElement("button");
-    mainBody.appendChild(fourButton);
-
-    fourButton.textContent = "4";
-
-    const fiveButton = document.createElement("button");
-    mainBody.appendChild(fiveButton);
-
-    fiveButton.textContent = "5";
-
-    const sixButton = document.createElement("button");
-    mainBody.appendChild(sixButton);
-
-    sixButton.textContent = "6";
-
-    const sevenButton = document.createElement("button");
-    mainBody.appendChild(sevenButton);
-
-    sevenButton.textContent = "7";
-
-    const eightButton = document.createElement("button");
-    mainBody.appendChild(eightButton);
-
-    eightButton.textContent = "8";
-
-    const nineButton = document.createElement("button");
-    mainBody.appendChild(nineButton);
-
-    nineButton.textContent = "9";
-
-    const zeroButton = document.createElement("button");
-    mainBody.appendChild(zeroButton);
-
-    //Create operator buttons
-
-    zeroButton.textContent = "0";
+    for (let i = 0; i < digitTexts.length; i++){
+        const digitButton = document.createElement("button");
+        mainBody.appendChild(digitButton);
+        digitButton.textContent = digitTexts[i];
+        // Add event listener to each digit button
+        digitButton.addEventListener("click", function(){
+            currentNumber += digitTexts[i];
+            resultText.textContent = currentNumber;
+        });
+    }
 
     const addButton = document.createElement("button");
     mainBody.appendChild(addButton);
@@ -110,118 +79,10 @@ function operate(){
 
     //Add event listeners to buttons
 
-    oneButton.addEventListener("click", function(){
-        currentNumber += "1";
-        resultText.textContent = currentNumber;
-    });
-
-    twoButton.addEventListener("click", function(){
-        currentNumber += "2";
-        resultText.textContent = currentNumber;
-    });
-
-    threeButton.addEventListener("click", function(){
-        currentNumber += "3";
-        resultText.textContent = currentNumber;
-    });
-
-    fourButton.addEventListener("click", function(){
-        currentNumber += "4";
-        resultText.textContent = currentNumber;
-    });
-
-    fiveButton.addEventListener("click", function(){
-        currentNumber += "5";
-        resultText.textContent = currentNumber;
-    });
-
-    sixButton.addEventListener("click", function(){
-        currentNumber += "6";
-        resultText.textContent = currentNumber;
-    });
-
-    sevenButton.addEventListener("click", function(){
-        currentNumber += "7";
-        resultText.textContent = currentNumber;
-    });
-
-    eightButton.addEventListener("click", function(){
-        currentNumber += "8";
-        resultText.textContent = currentNumber;
-    });
-
-    nineButton.addEventListener("click", function(){
-        currentNumber += "9";
-        resultText.textContent = currentNumber;
-    });
-
-    zeroButton.addEventListener("click", function(){
-        currentNumber += "0";
-        resultText.textContent = currentNumber;
-    });
-
-    addButton.addEventListener("click", function(){
-        calcChoice = "add";
-        operator = "+";
-        // if current number is empty, set it to number1 to prevent multiple clicking of operator
-        if (currentNumber === ""){
-            currentNumber = number1;
-        }
-        // save current number to number1 to work with second number next
-        number1 = currentNumber;
-        // if number is empty, set it to 0
-        if (number1 === ""){
-            number1 = "0";
-        }
-        // empty current number to start with new number
-        currentNumber = "";
-        resultText.textContent = operator;
-    });
-
-    subtractButton.addEventListener("click", function(){
-        calcChoice = "subtract";
-        operator = "-";
-        if (currentNumber === ""){
-            currentNumber = number1;
-        }
-        number1 = currentNumber;
-        // if number is empty, set it to 0
-        if (number1 === ""){
-            number1 = "0";
-        }
-        currentNumber = "";
-        resultText.textContent = operator
-    });
-
-    multiplyButton.addEventListener("click", function(){
-        calcChoice = "multiply";
-        operator = "*";
-        if (currentNumber === ""){
-            currentNumber = number1;
-        }
-        number1 = currentNumber;
-        currentNumber = "";
-        // if number is empty, set it to 0
-        if (number1 === ""){
-            number1 = "0";
-        }
-        resultText.textContent = operator;
-    });
-
-    divideButton.addEventListener("click", function(){
-        calcChoice = "divide";
-        operator = "/";
-        if (currentNumber === ""){
-            currentNumber = number1;
-        }
-        number1 = currentNumber;
-        currentNumber = "";
-        // if number is empty, set it to 0
-        if (number1 === ""){
-            number1 = "0";
-        }
-        resultText.textContent = operator;
-    });
+    addButton.addEventListener("click", function(){ operatorPressed("add", "+") });
+    subtractButton.addEventListener("click", function(){ operatorPressed("subtract", "-") });
+    multiplyButton.addEventListener("click", function(){ operatorPressed("multiply", "*") });
+    divideButton.addEventListener("click", function(){ operatorPressed("divide", "/") });
 
     equalsButton.addEventListener("click", function(){
         let result = 0;
@@ -289,6 +150,21 @@ function operate(){
         currentNumber = "";
         resultText.textContent = "";
     });
+
+    function operatorPressed(choice, symbol){
+        calcChoice = choice;
+        operator = symbol;
+        if (currentNumber === ""){
+            currentNumber = number1;
+        }
+        number1 = currentNumber;
+        // if number is empty, set it to 0
+        if (number1 === ""){
+            number1 = "0";
+        }
+        currentNumber = "";
+        resultText.textContent = operator
+    }    
 }
 
 function addNumbers(number1, number2){
