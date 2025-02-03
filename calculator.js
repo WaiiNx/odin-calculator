@@ -1,13 +1,30 @@
-/* TODO:
-- Finish Extra Credit Part of The Odin Project
-- Break operate() into smaller functions
-- Add keyboard support  ***DONE***
-- Add divs instead of putting everything in body
-- CSS Styling
-*/ 
-
 function operate(){
     const mainBody = document.querySelector("body");
+
+    const mainDiv = document.createElement("div");
+    mainDiv.classList.add("calculator");
+    mainBody.appendChild(mainDiv);
+
+    const displayDiv = document.createElement("div");
+    displayDiv.classList.add("display");
+    mainDiv.appendChild(displayDiv);
+
+    const inputDiv = document.createElement("div");
+    inputDiv.classList.add("input");
+    mainDiv.appendChild(inputDiv);
+
+    const operatorDiv = document.createElement("div");
+    operatorDiv.classList.add("operators");
+    inputDiv.appendChild(operatorDiv);
+
+    const digitDiv = document.createElement("div");
+    digitDiv.classList.add("digits");
+    inputDiv.appendChild(digitDiv);
+
+    const specialDiv = document.createElement("div");
+    specialDiv.classList.add("specials");
+    inputDiv.appendChild(specialDiv);
+
     //Array of digit texts
     const digitTexts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     const digitButtons = [];
@@ -17,11 +34,41 @@ function operate(){
     let currentNumber = "";
     let operator = "";
 
+    //Create Display
+    const resultText = document.createElement("p");
+    displayDiv.appendChild(resultText);
+
+    //Create special buttons
+    const decimalButton = document.createElement("button");
+    specialDiv.appendChild(decimalButton);
+
+    decimalButton.textContent = ".";
+
+    const backspaceButton = document.createElement("button");
+    specialDiv.appendChild(backspaceButton);
+
+    backspaceButton.textContent = "<-";
+
+    const negativeButton = document.createElement("button");
+    specialDiv.appendChild(negativeButton);
+
+    negativeButton.textContent = "(-)";
+
+    const equalsButton = document.createElement("button");
+    specialDiv.appendChild(equalsButton);
+
+    equalsButton.textContent = "=";
+
+    const clearButton = document.createElement("button");
+    specialDiv.appendChild(clearButton);
+
+    clearButton.textContent = "Clear";
+
     //Create buttons for digits
 
     for (let i = 0; i < digitTexts.length; i++){
         const digitButton = document.createElement("button");
-        mainBody.appendChild(digitButton);
+        digitDiv.appendChild(digitButton);
         digitButton.textContent = digitTexts[i];
         digitButtons.push(digitButton);
         // Add event listener to each digit button
@@ -31,69 +78,33 @@ function operate(){
         });
     }
 
-    const decimalButton = document.createElement("button");
-    mainBody.appendChild(decimalButton);
-
-    decimalButton.textContent = ".";
-
-    const backspaceButton = document.createElement("button");
-    mainBody.appendChild(backspaceButton);
-
-    backspaceButton.textContent = "<-";
-
-    const negativeButton = document.createElement("button");
-    mainBody.appendChild(negativeButton);
-
-    negativeButton.textContent = "(-)";
-
+    //Create operator buttons
     const addButton = document.createElement("button");
-    mainBody.appendChild(addButton);
+    operatorDiv.appendChild(addButton);
 
     addButton.textContent = "+";
 
     const subtractButton = document.createElement("button");
-    mainBody.appendChild(subtractButton);
+    operatorDiv.appendChild(subtractButton);
 
     subtractButton.textContent = "-";
 
     const multiplyButton = document.createElement("button");
-    mainBody.appendChild(multiplyButton);
+    operatorDiv.appendChild(multiplyButton);
 
     multiplyButton.textContent = "*";
 
     const divideButton = document.createElement("button");
-    mainBody.appendChild(divideButton);
+    operatorDiv.appendChild(divideButton);
 
     divideButton.textContent = "/";
-
-    const equalsButton = document.createElement("button");
-    mainBody.appendChild(equalsButton);
-
-    equalsButton.textContent = "=";
-
-    //Create clear button
-
-    const clearButton = document.createElement("button");
-    mainBody.appendChild(clearButton);
-
-    clearButton.textContent = "Clear";
-
-    //Create divs for user input and result
-
-    const resultDiv = document.createElement("div");
-    mainBody.appendChild(resultDiv);
-    resultDiv.style.border = "1px solid black";
-    resultDiv.style.backgroundColor = "lightgrey";
-
-    const resultText = document.createElement("p");
-    resultDiv.appendChild(resultText);
 
     //Event Listener for keyboard support
 
     document.addEventListener("keydown", function(event){
         if (!isNaN(event.key)){
             let index = parseInt(event.key);
-            digitButtons[index].click();
+            digitButtons[index-1].click();
         }else if (event.key === "Enter"){
             equalsButton.click();
         }else if (event.key === "+"){
@@ -111,25 +122,25 @@ function operate(){
         }else if (event.key === "."){
             decimalButton.click();
         }else if (event.key === "0"){
-            digitButton[9].click();
+            digitButtons[9].click();
         }else if (event.key === "1"){
-            digitButton[0].click();
+            digitButtons[0].click();
         }else if (event.key === "2"){
-            digitButton[1].click();
+            digitButtons[1].click();
         }else if (event.key === "3"){
-            digitButton[2].click();
+            digitButtons[2].click();
         }else if (event.key === "4"){
-            digitButton[3].click();
+            digitButtons[3].click();
         }else if (event.key === "5"){
-            digitButton[4].click();
+            digitButtons[4].click();
         }else if (event.key === "6"){
-            digitButton[5].click();
+            digitButtons[5].click();
         }else if (event.key === "7"){
-            digitButton[6].click();
+            digitButtons[6].click();
         }else if (event.key === "8"){
-            digitButton[7].click();
+            digitButtons[7].click();
         }else if (event.key === "9"){
-            digitButton[8].click();
+            digitButtons[8].click();
         }
     });
 
