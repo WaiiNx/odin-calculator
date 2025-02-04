@@ -102,47 +102,28 @@ function operate(){
     //Event Listener for keyboard support
 
     document.addEventListener("keydown", function(event){
-        if (!isNaN(event.key)){
-            let index = parseInt(event.key);
-            digitButtons[index-1].click();
-        }else if (event.key === "Enter"){
+        if (event.key >= "0" && event.key <= "9") {  
+            let index = parseInt(event.key) - 1;
+            if (index === -1) index = 9;
+            digitButtons[index].click();
+        } else if (event.key === "Enter") {
             equalsButton.click();
-        }else if (event.key === "+"){
+        } else if (event.key === "+") {
             addButton.click();
-        }else if (event.key === "-"){
+        } else if (event.key === "-") {
             subtractButton.click();
-        }else if (event.key === "*"){
+        } else if (event.key === "*") {
             multiplyButton.click();
-        }else if (event.key === "/"){
+        } else if (event.key === "/") {
             divideButton.click();
-        }else if (event.key === "Backspace"){
+        } else if (event.key === "Backspace") {
             backspaceButton.click();
-        }else if (event.key === "Escape"){
+        } else if (event.key === "Escape") {
             clearButton.click();
-        }else if (event.key === "."){
+        } else if (event.key === ".") {
             decimalButton.click();
-        }else if (event.key === "0"){
-            digitButtons[9].click();
-        }else if (event.key === "1"){
-            digitButtons[0].click();
-        }else if (event.key === "2"){
-            digitButtons[1].click();
-        }else if (event.key === "3"){
-            digitButtons[2].click();
-        }else if (event.key === "4"){
-            digitButtons[3].click();
-        }else if (event.key === "5"){
-            digitButtons[4].click();
-        }else if (event.key === "6"){
-            digitButtons[5].click();
-        }else if (event.key === "7"){
-            digitButtons[6].click();
-        }else if (event.key === "8"){
-            digitButtons[7].click();
-        }else if (event.key === "9"){
-            digitButtons[8].click();
         }
-    });
+    });    
 
     //Add event listeners to buttons
 
